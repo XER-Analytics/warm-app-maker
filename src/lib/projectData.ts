@@ -21,15 +21,16 @@ export interface Project {
 
 export const defaultFactors: AssessmentFactor[] = [
   // X-axis factors (detaljnivå)
-  { id: "wbs_depth", label: "WBS-djup", description: "Hur detaljerad är projektets nedbrytningsstruktur?", axis: "x", weight: 0.25, value: 50 },
-  { id: "schedule_detail", label: "Tidplansdetalj", description: "Hur granulär är tidplanen (milstolpar vs dagliga aktiviteter)?", axis: "x", weight: 0.25, value: 50 },
-  { id: "resource_detail", label: "Resursplanering", description: "Hur detaljerat är resurser tilldelade och planerade?", axis: "x", weight: 0.25, value: 50 },
-  { id: "risk_detail", label: "Riskhantering", description: "Hur noggrant är risker identifierade och kvantifierade?", axis: "x", weight: 0.25, value: 50 },
+  // X-axis factors (detaljnivå)
+  { id: "wbs_depth", label: "WBS-djup", description: "Hur detaljerad är projektets nedbrytningsstruktur?", axis: "x", weight: 0.5, value: 50 },
+  { id: "schedule_detail", label: "Tidplansdetalj", description: "Hur granulär är tidplanen (milstolpar vs dagliga aktiviteter)?", axis: "x", weight: 0.5, value: 50 },
   // Y-axis factors (datamängd)
-  { id: "historical_data", label: "Historisk data", description: "Hur mycket historisk projektdata finns tillgänglig?", axis: "y", weight: 0.3, value: 50 },
-  { id: "kpi_tracking", label: "KPI-uppföljning", description: "Hur många nyckeltal följs upp kontinuerligt?", axis: "y", weight: 0.25, value: 50 },
-  { id: "data_integration", label: "Dataintegration", description: "Hur väl integrerade är datakällorna (ERP, tidrapporter etc.)?", axis: "y", weight: 0.25, value: 50 },
-  { id: "reporting_freq", label: "Rapporteringsfrekvens", description: "Hur ofta samlas och rapporteras data?", axis: "y", weight: 0.2, value: 50 },
+  { id: "resource_detail", label: "Resursplanering", description: "Hur detaljerat är resurser tilldelade och planerade?", axis: "y", weight: 0.2, value: 50 },
+  { id: "risk_detail", label: "Riskhantering", description: "Hur noggrant är risker identifierade och kvantifierade?", axis: "y", weight: 0.15, value: 50 },
+  { id: "historical_data", label: "Historisk data", description: "Hur mycket historisk projektdata finns tillgänglig?", axis: "y", weight: 0.25, value: 50 },
+  { id: "kpi_tracking", label: "KPI-uppföljning", description: "Hur många nyckeltal följs upp kontinuerligt?", axis: "y", weight: 0.15, value: 50 },
+  { id: "data_integration", label: "Dataintegration", description: "Hur väl integrerade är datakällorna (ERP, tidrapporter etc.)?", axis: "y", weight: 0.15, value: 50 },
+  { id: "reporting_freq", label: "Rapporteringsfrekvens", description: "Hur ofta samlas och rapporteras data?", axis: "y", weight: 0.1, value: 50 },
 ];
 
 export const demoProjects: Project[] = [
