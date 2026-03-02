@@ -1,45 +1,78 @@
-import { DollarSign, Users, ShoppingCart, Eye } from "lucide-react";
-import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import StatCard from "@/components/dashboard/StatCard";
-import RevenueChart from "@/components/dashboard/RevenueChart";
-import ActivityTable from "@/components/dashboard/ActivityTable";
-
-const stats = [
-  { title: "Total Revenue", value: "$48,230", change: "+12.5%", trend: "up" as const, icon: DollarSign },
-  { title: "Active Users", value: "2,847", change: "+8.2%", trend: "up" as const, icon: Users },
-  { title: "Orders", value: "1,243", change: "+3.1%", trend: "up" as const, icon: ShoppingCart },
-  { title: "Page Views", value: "89.2K", change: "-2.4%", trend: "down" as const, icon: Eye },
-];
+import { useState, useCallback } from "react";
+import { Project, demoProjects, defaultFactors, calculatePosition, AssessmentFactor } from "@/lib/projectData";
+import MatrixChart from "@/components/matrix/MatrixChart";
+import AssessmentForm from "@/components/matrix/AssessmentForm";
+import ProjectList from "@/components/matrix/ProjectList";
+import ProjectTips from "@/components/matrix/ProjectTips";
+import { LayoutGrid } from "lucide-react";
 
 const Index = () => {
+  const [projects, setProjects] = useState<Project[]>(demoProjects);
+  const [selectedId, setSelectedId] = useState<string | undefined>();
+
+  const selectedProject = projects.find(p => p.id === selectedId) || null;
+
+  const handleSubmit = useCallback((name: string, description: string, factors: AssessmentFactor[]) => {
+    const pos = calculatePosition(factors);
+    const newProject: Project = {
+      id: `user-${Date.now()}`,
+      name,
+      description,
+      x: pos.x,
+      y: pos.y,
+      color: "hsl(var(--primary))",
+      isUserProject: true,
+      factors,
+      createdAt: new Date().toISOString().split("T")[0],
+    };
+    setProjects(prev => [...prev.filter(p => !p.isUserProject), newProject]);
+    setSelectedId(newProject.id);
+  }, []);
+
+  const handleManualDrop = useCallback((x: number, y: number) => {
+    const userProject = projects.find(p => p.isUserProject);
+    if (userProject) {
+      setProjects(prev => prev.map(p =>
+        p.isUserProject ? { ...p, x, y } : p
+      ));
+    }
+  }, [projects]);
+
   return (
-    <div className="flex min-h-screen bg-background">
-      <DashboardSidebar />
-      <div className="flex-1 pl-60">
-        <DashboardHeader />
-        <main className="p-6">
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold text-foreground tracking-tight">Overview</h2>
-            <p className="text-sm text-muted-foreground mt-0.5">Welcome back, here's what's happening today.</p>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-20">
+        <div className="mx-auto max-w-7xl flex items-center gap-2.5 px-6 h-14">
+          <LayoutGrid className="h-4.5 w-4.5 text-primary" />
+          <h1 className="text-sm font-semibold text-foreground tracking-tight">Projektplaneringsmatris</h1>
+          <span className="text-xs text-muted-foreground ml-1">— Kartlägg ditt projekts planeringsläge</span>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl p-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+          {/* Left: Assessment form */}
+          <div className="lg:col-span-3 space-y-5">
+            <AssessmentForm onSubmit={handleSubmit} />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, i) => (
-              <StatCard key={stat.title} {...stat} delay={i * 50} />
-            ))}
+          {/* Center: Matrix */}
+          <div className="lg:col-span-6">
+            <MatrixChart
+              projects={projects}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
+              onDrop={handleManualDrop}
+            />
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-5">
-            <div className="xl:col-span-3">
-              <RevenueChart />
-            </div>
-            <div className="xl:col-span-2">
-              <ActivityTable />
-            </div>
+          {/* Right: Projects + Tips */}
+          <div className="lg:col-span-3 space-y-5">
+            <ProjectList projects={projects} selectedId={selectedId} onSelect={setSelectedId} />
+            <ProjectTips project={selectedProject} />
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
