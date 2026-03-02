@@ -4,7 +4,7 @@ import MatrixChart from "@/components/matrix/MatrixChart";
 import AssessmentForm from "@/components/matrix/AssessmentForm";
 import ProjectList from "@/components/matrix/ProjectList";
 import ProjectTips from "@/components/matrix/ProjectTips";
-import { LayoutGrid } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Index: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(demoProjects);
@@ -42,9 +42,8 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-20">
-        <div className="mx-auto max-w-7xl flex items-center gap-2.5 px-6 h-14">
-          <LayoutGrid className="h-4.5 w-4.5 text-primary" />
-          <h1 className="text-sm font-semibold text-foreground tracking-tight">Projektplaneringsmatris</h1>
+        <div className="mx-auto max-w-7xl flex items-center gap-3 px-6 h-14">
+          <img src={logo} alt="XER Analytics" className="h-8" />
           <span className="text-xs text-muted-foreground ml-1">— Kartlägg ditt projekts planeringsläge</span>
         </div>
       </header>
