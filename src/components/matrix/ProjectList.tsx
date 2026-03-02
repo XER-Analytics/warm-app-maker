@@ -2,14 +2,16 @@ import { Project, getMatrixZone } from "@/lib/projectData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 interface ProjectListProps {
   projects: Project[];
   selectedId?: string;
   onSelect: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
-const ProjectList = ({ projects, selectedId, onSelect }: ProjectListProps) => {
+const ProjectList = ({ projects, selectedId, onSelect, onDelete }: ProjectListProps) => {
   return (
     <Card className="border-border">
       <CardHeader className="pb-2">
@@ -46,6 +48,15 @@ const ProjectList = ({ projects, selectedId, onSelect }: ProjectListProps) => {
                   <span className="text-muted-foreground/60">• {zone}</span>
                 </div>
               </div>
+              {onDelete && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onDelete(project.id); }}
+                  className="mt-1 shrink-0 rounded p-0.5 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/10 transition-colors"
+                  title="Ta bort projekt"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
             </button>
           );
         })}
