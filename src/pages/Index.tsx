@@ -14,19 +14,31 @@ const Index: React.FC = () => {
 
   const handleSubmit = useCallback((name: string, description: string, factors: AssessmentFactor[]) => {
     const pos = calculatePosition(factors);
-    const newProject: Project = {
-      id: `user-${Date.now()}`,
-      name,
-      description,
-      x: pos.x,
-      y: pos.y,
-      color: "hsl(var(--primary))",
-      isUserProject: true,
-      factors,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
-    setProjects(prev => [...prev.filter(p => !p.isUserProject), newProject]);
-    setSelectedId(newProject.id);
+    if (selectedId && projects.find(p => p.id === selectedId)) {
+      // Update existing project
+      setProjects(prev => prev.map(p =>
+        p.id === selectedId ? { ...p, name, description, x: pos.x, y: pos.y, factors } : p
+      ));
+    } else {
+      // Create new user project
+      const newProject: Project = {
+        id: `user-${Date.now()}`,
+        name,
+        description,
+        x: pos.x,
+        y: pos.y,
+        color: "hsl(var(--primary))",
+        isUserProject: true,
+        factors,
+        createdAt: new Date().toISOString().split("T")[0],
+      };
+      setProjects(prev => [...prev, newProject]);
+      setSelectedId(newProject.id);
+    }
+  }, [selectedId, projects]);
+
+  const handleDeselect = useCallback(() => {
+    setSelectedId(undefined);
   }, []);
 
   const handleManualDrop = useCallback((x: number, y: number) => {
@@ -52,7 +64,15 @@ const Index: React.FC = () => {
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
           {/* Left: Assessment form */}
           <div className="lg:col-span-3 space-y-5">
-            <AssessmentForm onSubmit={handleSubmit} />
+            <AssessmentForm
+              key={selectedId || "new"}
+              onSubmit={handleSubmit}
+              initialName={selectedProject?.name}
+              initialDescription={selectedProject?.description}
+              initialFactors={selectedProject?.factors}
+              isEditing={!!selectedProject}
+              onDeselect={handleDeselect}
+            />
           </div>
 
           {/* Center: Matrix */}
