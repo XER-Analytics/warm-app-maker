@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Project, demoProjects, defaultFactors, calculatePosition, AssessmentFactor } from "@/lib/projectData";
 import MatrixChart from "@/components/matrix/MatrixChart";
 import AssessmentForm from "@/components/matrix/AssessmentForm";
@@ -6,7 +6,7 @@ import ProjectList from "@/components/matrix/ProjectList";
 import ProjectTips from "@/components/matrix/ProjectTips";
 import { LayoutGrid } from "lucide-react";
 
-const Index = () => {
+const Index: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(demoProjects);
   const [selectedId, setSelectedId] = useState<string | undefined>();
 
