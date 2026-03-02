@@ -14,9 +14,11 @@ interface AssessmentFormProps {
   initialName?: string;
   initialDescription?: string;
   initialFactors?: AssessmentFactor[];
+  isEditing?: boolean;
+  onDeselect?: () => void;
 }
 
-const AssessmentForm = ({ onSubmit, initialName = "", initialDescription = "", initialFactors }: AssessmentFormProps) => {
+const AssessmentForm = ({ onSubmit, initialName = "", initialDescription = "", initialFactors, isEditing, onDeselect }: AssessmentFormProps) => {
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
   const [factors, setFactors] = useState<AssessmentFactor[]>(initialFactors || defaultFactors.map(f => ({ ...f })));
@@ -45,13 +47,24 @@ const AssessmentForm = ({ onSubmit, initialName = "", initialDescription = "", i
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-base font-semibold tracking-tight">Bedömning</CardTitle>
-            <CardDescription className="text-xs mt-0.5">Besvara faktorerna för att placera ditt projekt</CardDescription>
+            <CardTitle className="text-base font-semibold tracking-tight">
+              {isEditing ? "Redigera projekt" : "Nytt projekt"}
+            </CardTitle>
+            <CardDescription className="text-xs mt-0.5">
+              {isEditing ? "Justera faktorerna och spara" : "Besvara faktorerna för att placera ditt projekt"}
+            </CardDescription>
           </div>
-          <Button variant="ghost" size="sm" onClick={handleReset} className="text-xs h-7">
-            <RotateCcw className="h-3 w-3 mr-1" />
-            Återställ
-          </Button>
+          <div className="flex gap-1">
+            {isEditing && onDeselect && (
+              <Button variant="ghost" size="sm" onClick={onDeselect} className="text-xs h-7">
+                Nytt
+              </Button>
+            )}
+            <Button variant="ghost" size="sm" onClick={handleReset} className="text-xs h-7">
+              <RotateCcw className="h-3 w-3 mr-1" />
+              Återställ
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -93,7 +106,7 @@ const AssessmentForm = ({ onSubmit, initialName = "", initialDescription = "", i
           </div>
 
           <Button type="submit" className="w-full h-9 text-sm" disabled={!name.trim()}>
-            Placera i matrisen
+            {isEditing ? "Uppdatera projekt" : "Placera i matrisen"}
           </Button>
         </form>
       </CardContent>
