@@ -42,8 +42,8 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-20">
-        <div className="mx-auto max-w-7xl flex items-center gap-3 px-6 h-14">
-          <img src={logo} alt="XER Analytics" className="h-8" />
+        <div className="mx-auto max-w-7xl flex items-center gap-3 px-6 h-20">
+          <img src={logo} alt="XER Analytics" className="h-16" />
           <span className="text-xs text-muted-foreground ml-1">— Kartlägg ditt projekts planeringsläge</span>
         </div>
       </header>
