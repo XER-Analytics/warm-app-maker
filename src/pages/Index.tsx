@@ -50,6 +50,10 @@ const Index: React.FC = () => {
     }
   }, [projects]);
 
+  const handleDelete = useCallback((id: string) => {
+    setProjects(prev => prev.filter(p => p.id !== id));
+    if (selectedId === id) setSelectedId(undefined);
+  }, [selectedId]);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -87,7 +91,7 @@ const Index: React.FC = () => {
 
           {/* Right: Projects + Tips */}
           <div className="lg:col-span-3 space-y-5">
-            <ProjectList projects={projects} selectedId={selectedId} onSelect={setSelectedId} />
+            <ProjectList projects={projects} selectedId={selectedId} onSelect={setSelectedId} onDelete={handleDelete} />
             <ProjectTips project={selectedProject} />
           </div>
         </div>
