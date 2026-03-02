@@ -22,9 +22,9 @@ export interface Project {
 export const defaultFactors: AssessmentFactor[] = [
   // X-axis factors (detaljnivå)
   // X-axis factors (detaljnivå)
-  { id: "wbs_depth", label: "WBS-djup", description: "Hur detaljerad är projektets nedbrytningsstruktur?", axis: "x", weight: 0.25, value: 50 },
-  { id: "schedule_detail", label: "Tidplansdetalj", description: "Hur granulär är tidplanen (milstolpar vs dagliga aktiviteter)?", axis: "x", weight: 0.25, value: 50 },
-  { id: "code_volume", label: "Kodmängd", description: "Hur många aktiviteter/koder finns i tidplanen?", axis: "x", weight: 0.25, value: 50 },
+  { id: "wbs_depth", label: "WBS-djup", description: "Hur detaljerad är projektets nedbrytningsstruktur?", axis: "x", weight: 0.15, value: 50 },
+  { id: "schedule_detail", label: "Tidplansdetalj", description: "Hur granulär är tidplanen (milstolpar vs dagliga aktiviteter)?", axis: "x", weight: 0.20, value: 50 },
+  { id: "code_volume", label: "Kodmängd", description: "Hur många aktiviteter/koder finns i tidplanen? Fler koder ger högre flexibilitet och analysmöjlighet.", axis: "x", weight: 0.40, value: 50 },
   { id: "reporting_freq", label: "Rapporteringsfrekvens", description: "Hur ofta samlas och rapporteras data?", axis: "x", weight: 0.25, value: 50 },
   // Y-axis factors (datamängd)
   { id: "resource_detail", label: "Resursplanering", description: "Hur detaljerat är resurser tilldelade och planerade?", axis: "y", weight: 0.25, value: 50 },
