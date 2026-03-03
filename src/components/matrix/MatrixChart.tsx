@@ -49,15 +49,21 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProps) => {
+  const dotClickedRef = { current: false };
+
   const handleClick = (data: any) => {
     if (data?.activePayload?.[0]) {
+      dotClickedRef.current = true;
       onSelect(data.activePayload[0].payload.id);
     }
   };
 
   const handleChartClick = (e: any) => {
+    if (dotClickedRef.current) {
+      dotClickedRef.current = false;
+      return;
+    }
     if (!onDrop || !e) return;
-    // Calculate position from chart coordinates
     const { chartX, chartY, xAxisMap, yAxisMap } = e || {};
     if (chartX !== undefined && chartY !== undefined && xAxisMap && yAxisMap) {
       const xAxis = Object.values(xAxisMap)[0] as any;
