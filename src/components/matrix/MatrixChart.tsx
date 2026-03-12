@@ -97,13 +97,6 @@ const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProp
       </CardHeader>
       <CardContent>
         <div className="relative h-[420px]">
-          {/* Zone labels */}
-          <div className="absolute inset-0 pointer-events-none z-10">
-            <span className="absolute left-[12%] top-[75%] text-[10px] text-muted-foreground/40 font-medium">Tidigt skede</span>
-            <span className="absolute right-[8%] top-[75%] text-[10px] text-muted-foreground/40 font-medium">Detaljerat</span>
-            <span className="absolute left-[12%] top-[12%] text-[10px] text-muted-foreground/40 font-medium">Datarikt</span>
-            <span className="absolute right-[8%] top-[12%] text-[10px] text-muted-foreground/40 font-medium">Optimalt</span>
-          </div>
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart margin={{ top: 20, right: 20, bottom: 30, left: 20 }} onClick={handleChartClick}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.5} />
