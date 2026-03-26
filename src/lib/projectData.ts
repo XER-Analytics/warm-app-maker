@@ -27,10 +27,9 @@ export const defaultFactors: AssessmentFactor[] = [
   { id: "code_volume", label: "Kodmängd", description: "Hur många aktiviteter/koder finns i tidplanen? Fler koder ger högre flexibilitet och analysmöjlighet.", axis: "x", weight: 0.40, value: 50 },
   { id: "reporting_freq", label: "Rapporteringsfrekvens", description: "Hur ofta samlas och rapporteras data?", axis: "x", weight: 0.25, value: 50 },
   // Y-axis factors (datamängd)
-  { id: "resource_count", label: "Antal resurser", description: "Hur många resurser är kopplade till projektet?", axis: "y", weight: 0.20, value: 50 },
-  { id: "resource_level", label: "Resursnivå", description: "På vilken nivå planeras resurserna (roll, disciplin, individ)?", axis: "y", weight: 0.15, value: 50 },
-  { id: "resource_detail", label: "Resursplanering", description: "Hur detaljerat är resurser tilldelade och planerade?", axis: "y", weight: 0.15, value: 50 },
-  { id: "risk_detail", label: "Riskhantering", description: "Hur noggrant är risker identifierade och kvantifierade?", axis: "y", weight: 0.10, value: 50 },
+  { id: "resource_count", label: "Antal resurser", description: "Hur många resurser är kopplade till projektet?", axis: "y", weight: 0.25, value: 50 },
+  { id: "resource_level", label: "Resursnivå", description: "På vilken nivå planeras resurserna (roll, disciplin, individ)?", axis: "y", weight: 0.20, value: 50 },
+  { id: "risk_detail", label: "Riskhantering", description: "Hur noggrant är risker identifierade och kvantifierade?", axis: "y", weight: 0.15, value: 50 },
   { id: "historical_data", label: "Historisk data", description: "Hur mycket historisk projektdata finns tillgänglig?", axis: "y", weight: 0.15, value: 50 },
   { id: "kpi_tracking", label: "KPI-uppföljning", description: "Hur många nyckeltal följs upp kontinuerligt?", axis: "y", weight: 0.10, value: 50 },
   { id: "data_integration", label: "Dataintegration", description: "Hur väl integrerade är datakällorna (ERP, tidrapporter etc.)?", axis: "y", weight: 0.15, value: 50 },
