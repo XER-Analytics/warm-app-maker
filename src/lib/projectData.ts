@@ -43,7 +43,7 @@ export const demoProjects: Project[] = [
     x: 84, y: 68,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 80, schedule_detail: 85, code_volume: 80, resource_count: 60, resource_level: 75, resource_detail: 70, risk_detail: 60, historical_data: 65, kpi_tracking: 60, data_integration: 75, reporting_freq: 90 };
+      const vals: Record<string, number> = { wbs_depth: 80, schedule_detail: 85, code_volume: 80, resource_count: 60, resource_level: 75, risk_detail: 60, historical_data: 65, kpi_tracking: 60, data_integration: 75, reporting_freq: 90 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -55,7 +55,7 @@ export const demoProjects: Project[] = [
     x: 74, y: 77,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 55, schedule_detail: 60, code_volume: 90, resource_count: 80, resource_level: 90, resource_detail: 90, risk_detail: 60, historical_data: 70, kpi_tracking: 90, data_integration: 75, reporting_freq: 70 };
+      const vals: Record<string, number> = { wbs_depth: 55, schedule_detail: 60, code_volume: 90, resource_count: 80, resource_level: 90, risk_detail: 60, historical_data: 70, kpi_tracking: 90, data_integration: 75, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -67,7 +67,7 @@ export const demoProjects: Project[] = [
     x: 54, y: 57,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 50, schedule_detail: 50, code_volume: 60, resource_count: 75, resource_level: 70, resource_detail: 85, risk_detail: 50, historical_data: 55, kpi_tracking: 45, data_integration: 50, reporting_freq: 50 };
+      const vals: Record<string, number> = { wbs_depth: 50, schedule_detail: 50, code_volume: 60, resource_count: 75, resource_level: 70, risk_detail: 50, historical_data: 55, kpi_tracking: 45, data_integration: 50, reporting_freq: 50 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -79,7 +79,7 @@ export const demoProjects: Project[] = [
     x: 83, y: 63,
     color: "hsl(var(--chart-4))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 90, resource_count: 50, resource_level: 55, resource_detail: 55, risk_detail: 70, historical_data: 60, kpi_tracking: 75, data_integration: 55, reporting_freq: 70 };
+      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 90, resource_count: 50, resource_level: 55, risk_detail: 70, historical_data: 60, kpi_tracking: 75, data_integration: 55, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -91,7 +91,7 @@ export const demoProjects: Project[] = [
     x: 28, y: 14,
     color: "hsl(var(--chart-5))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 20, schedule_detail: 25, code_volume: 30, resource_count: 10, resource_level: 10, resource_detail: 10, risk_detail: 15, historical_data: 15, kpi_tracking: 10, data_integration: 10, reporting_freq: 30 };
+      const vals: Record<string, number> = { wbs_depth: 20, schedule_detail: 25, code_volume: 30, resource_count: 10, resource_level: 10, risk_detail: 15, historical_data: 15, kpi_tracking: 10, data_integration: 10, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -103,7 +103,7 @@ export const demoProjects: Project[] = [
     x: 35, y: 29,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 35, code_volume: 30, resource_count: 25, resource_level: 30, resource_detail: 25, risk_detail: 30, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 45 };
+      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 35, code_volume: 30, resource_count: 25, resource_level: 30, risk_detail: 30, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 45 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -115,7 +115,7 @@ export const demoProjects: Project[] = [
     x: 15, y: 12,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 10, schedule_detail: 15, code_volume: 10, resource_count: 10, resource_level: 10, resource_detail: 10, risk_detail: 10, historical_data: 10, kpi_tracking: 10, data_integration: 10, reporting_freq: 25 };
+      const vals: Record<string, number> = { wbs_depth: 10, schedule_detail: 15, code_volume: 10, resource_count: 10, resource_level: 10, risk_detail: 10, historical_data: 10, kpi_tracking: 10, data_integration: 10, reporting_freq: 25 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -127,7 +127,7 @@ export const demoProjects: Project[] = [
     x: 45, y: 52,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 70, schedule_detail: 55, code_volume: 30, resource_count: 40, resource_level: 65, resource_detail: 75, risk_detail: 50, historical_data: 50, kpi_tracking: 40, data_integration: 45, reporting_freq: 45 };
+      const vals: Record<string, number> = { wbs_depth: 70, schedule_detail: 55, code_volume: 30, resource_count: 40, resource_level: 65, risk_detail: 50, historical_data: 50, kpi_tracking: 40, data_integration: 45, reporting_freq: 45 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -139,7 +139,7 @@ export const demoProjects: Project[] = [
     x: 29, y: 25,
     color: "hsl(var(--chart-4))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 25, schedule_detail: 30, code_volume: 30, resource_count: 20, resource_level: 25, resource_detail: 20, risk_detail: 25, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 30 };
+      const vals: Record<string, number> = { wbs_depth: 25, schedule_detail: 30, code_volume: 30, resource_count: 20, resource_level: 25, risk_detail: 25, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -151,7 +151,7 @@ export const demoProjects: Project[] = [
     x: 29, y: 35,
     color: "hsl(var(--chart-5))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 25, code_volume: 30, resource_count: 30, resource_level: 35, resource_detail: 30, risk_detail: 35, historical_data: 35, kpi_tracking: 40, data_integration: 40, reporting_freq: 30 };
+      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 25, code_volume: 30, resource_count: 30, resource_level: 35, risk_detail: 35, historical_data: 35, kpi_tracking: 40, data_integration: 40, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -163,7 +163,7 @@ export const demoProjects: Project[] = [
     x: 65, y: 63,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 70, code_volume: 55, resource_count: 45, resource_level: 50, resource_detail: 50, risk_detail: 55, historical_data: 60, kpi_tracking: 85, data_integration: 70, reporting_freq: 60 };
+      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 70, code_volume: 55, resource_count: 45, resource_level: 50, risk_detail: 55, historical_data: 60, kpi_tracking: 85, data_integration: 70, reporting_freq: 60 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-29",
@@ -175,7 +175,7 @@ export const demoProjects: Project[] = [
     x: 64, y: 41,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 65, code_volume: 60, resource_count: 45, resource_level: 55, resource_detail: 55, risk_detail: 40, historical_data: 35, kpi_tracking: 35, data_integration: 30, reporting_freq: 55 };
+      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 65, code_volume: 60, resource_count: 45, resource_level: 55, risk_detail: 40, historical_data: 35, kpi_tracking: 35, data_integration: 30, reporting_freq: 55 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-11-02",
@@ -187,7 +187,7 @@ export const demoProjects: Project[] = [
     x: 79, y: 68,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 80, resource_count: 55, resource_level: 60, resource_detail: 60, risk_detail: 65, historical_data: 65, kpi_tracking: 80, data_integration: 70, reporting_freq: 70 };
+      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 80, resource_count: 55, resource_level: 60, risk_detail: 65, historical_data: 65, kpi_tracking: 80, data_integration: 70, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-11-06",
