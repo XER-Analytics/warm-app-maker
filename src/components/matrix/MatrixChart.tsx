@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, ReferenceLine, Label, Tooltip as RechartsTooltip } from "recharts";
 import { Project } from "@/lib/projectData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -49,12 +50,12 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProps) => {
-  const dotClickedRef = { current: false };
+  const dotClickedRef = useRef(false);
 
-  const handleClick = (data: any) => {
-    if (data?.activePayload?.[0]) {
+  const handleDotClick = (data: any) => {
+    if (data?.id) {
       dotClickedRef.current = true;
-      onSelect(data.activePayload[0].payload.id);
+      onSelect(data.id);
     }
   };
 
@@ -123,7 +124,7 @@ const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProp
               <ReferenceLine x={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <ReferenceLine y={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <RechartsTooltip content={<CustomTooltip />} />
-              <Scatter data={projects} shape={<CustomDot />} onClick={handleClick} />
+              <Scatter data={projects} shape={<CustomDot />} onClick={handleDotClick} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
