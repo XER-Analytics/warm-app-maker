@@ -73,16 +73,6 @@ export const questions: Question[] = [
     ],
   },
   {
-    factorId: "resource_detail",
-    question: "Hur planeras och tilldelas resurser?",
-    options: [
-      { label: "Inga resurser kopplade till tidplanen", value: 10 },
-      { label: "Resurser på rollnivå / disciplin", value: 35 },
-      { label: "Namngivna resurser med beläggning", value: 65 },
-      { label: "Individnivå med detaljerad kapacitetsplanering", value: 90 },
-    ],
-  },
-  {
     factorId: "risk_detail",
     question: "Hur hanteras risker i projektet?",
     options: [
