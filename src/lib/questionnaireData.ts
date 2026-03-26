@@ -53,6 +53,26 @@ export const questions: Question[] = [
   },
   // Y-axis: Datamängd
   {
+    factorId: "resource_count",
+    question: "Hur många resurser är kopplade till projektet?",
+    options: [
+      { label: "Inga eller färre än 5", value: 10 },
+      { label: "5–15 resurser", value: 35 },
+      { label: "15–50 resurser", value: 65 },
+      { label: "Mer än 50 resurser", value: 90 },
+    ],
+  },
+  {
+    factorId: "resource_level",
+    question: "På vilken nivå planeras resurserna?",
+    options: [
+      { label: "Inga resurser kopplade", value: 10 },
+      { label: "Övergripande rollnivå", value: 35 },
+      { label: "Disciplin/team med beläggning", value: 65 },
+      { label: "Individnivå med detaljerad kapacitetsplanering", value: 90 },
+    ],
+  },
+  {
     factorId: "resource_detail",
     question: "Hur planeras och tilldelas resurser?",
     options: [
