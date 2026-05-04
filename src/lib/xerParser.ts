@@ -174,9 +174,14 @@ export function mapXerToFactors(data: XerData): XerImportResult {
     [0, 5], [5, 35], [20, 60], [50, 80], [100, 95],
   ]);
 
+  const tablesFound = Object.entries(data.tables)
+    .map(([name, t]) => ({ name, rowCount: t.rows.length }))
+    .sort((a, b) => b.rowCount - a.rowCount);
+
   return {
     projectName,
     description,
+    tablesFound,
     factorValues: {
       code_volume,
       wbs_depth,
