@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AssessmentFactor, defaultFactors, calculatePosition } from "@/lib/projectData";
 import { questions } from "@/lib/questionnaireData";
+import { parseXer, mapXerToFactors } from "@/lib/xerParser";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -8,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { toast } from "sonner";
+import { Info, RotateCcw, ChevronLeft, ChevronRight, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface AssessmentFormProps {
