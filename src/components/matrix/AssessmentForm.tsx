@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AssessmentFactor, defaultFactors, calculatePosition } from "@/lib/projectData";
 import { questions } from "@/lib/questionnaireData";
+import { parseXer, mapXerToFactors } from "@/lib/xerParser";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -8,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { toast } from "sonner";
+import { Info, RotateCcw, ChevronLeft, ChevronRight, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface AssessmentFormProps {
@@ -136,8 +138,36 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
   const [description, setDescription] = useState("");
   const [factors, setFactors] = useState<AssessmentFactor[]>(defaultFactors.map(f => ({ ...f })));
   const [step, setStep] = useState(0); // 0 = info, 1..N = questions
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const totalSteps = questions.length + 1;
+
+  const handleXerImport = async (file: File) => {
+    try {
+      const text = await file.text();
+      const data = parseXer(text);
+      if (!Object.keys(data.tables).length) throw new Error("Inga tabeller hittades i filen");
+      const result = mapXerToFactors(data);
+      const importedFactors = defaultFactors.map(f =>
+        result.factorValues[f.id] !== undefined ? { ...f, value: result.factorValues[f.id] } : { ...f }
+      );
+      const desc = `${result.stats.taskCount} aktiviteter · WBS-djup ${result.stats.wbsDepth} · ${result.stats.resourceCount} resurser (${result.stats.resourceLevelLabel})`;
+      // Submit directly so the project lands in the matrix immediately
+      onSubmit(result.projectName, desc, importedFactors);
+      setName("");
+      setDescription("");
+      setFactors(defaultFactors.map(f => ({ ...f })));
+      setStep(0);
+      const filled = Object.keys(result.factorValues).length;
+      toast.success("XER-fil importerad", {
+        description: `${filled} av 10 faktorer fylldes automatiskt. Klicka på pricken i matrisen för att finjustera övriga.`,
+      });
+    } catch (err) {
+      toast.error("Kunde inte läsa XER-filen", {
+        description: err instanceof Error ? err.message : "Okänt fel",
+      });
+    }
+  };
 
   const updateFactor = (factorId: string, value: number) => {
     setFactors(prev => prev.map(f => f.id === factorId ? { ...f, value } : f));
@@ -208,6 +238,36 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
             <Button className="w-full h-9 text-sm" disabled={!canProceed} onClick={() => setStep(1)}>
               Starta bedömning <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
+
+            <div className="relative flex items-center gap-2 py-1">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">eller</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".xer,text/plain"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleXerImport(f);
+                e.target.value = "";
+              }}
+            />
+            <Button
+              variant="outline"
+              className="w-full h-9 text-sm"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-3.5 w-3.5 mr-1.5" />
+              Importera XER-fil (Primavera P6)
+            </Button>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              Vi läser kodmängd, WBS-djup, tidplansdetalj, antal resurser, resursnivå och risker direkt från filen.
+              Övriga faktorer fyller du i efteråt.
+            </p>
           </div>
         ) : currentQuestion ? (
           <div className="space-y-4">
