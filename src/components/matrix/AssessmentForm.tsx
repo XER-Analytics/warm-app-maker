@@ -195,6 +195,8 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
   };
 
   return (
+    <>
+    <XerImportReport open={!!importReport} onClose={() => setImportReport(null)} report={importReport} />
     <Card className="border-border">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
