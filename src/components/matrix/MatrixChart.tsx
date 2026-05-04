@@ -134,7 +134,7 @@ const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProp
               <ReferenceLine x={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <ReferenceLine y={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <RechartsTooltip content={<CustomTooltip />} />
-              <Scatter data={projects} shape={<CustomDot />} onClick={handleDotClick} />
+              <Scatter data={projects} shape={(props: any) => <CustomDot {...props} selectedId={selectedId} />} onClick={handleDotClick} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
