@@ -324,6 +324,7 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
         ) : null}
       </CardContent>
     </Card>
+    </>
   );
 };
 
