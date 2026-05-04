@@ -138,8 +138,36 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
   const [description, setDescription] = useState("");
   const [factors, setFactors] = useState<AssessmentFactor[]>(defaultFactors.map(f => ({ ...f })));
   const [step, setStep] = useState(0); // 0 = info, 1..N = questions
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const totalSteps = questions.length + 1;
+
+  const handleXerImport = async (file: File) => {
+    try {
+      const text = await file.text();
+      const data = parseXer(text);
+      if (!Object.keys(data.tables).length) throw new Error("Inga tabeller hittades i filen");
+      const result = mapXerToFactors(data);
+      const importedFactors = defaultFactors.map(f =>
+        result.factorValues[f.id] !== undefined ? { ...f, value: result.factorValues[f.id] } : { ...f }
+      );
+      const desc = `${result.stats.taskCount} aktiviteter · WBS-djup ${result.stats.wbsDepth} · ${result.stats.resourceCount} resurser (${result.stats.resourceLevelLabel})`;
+      // Submit directly so the project lands in the matrix immediately
+      onSubmit(result.projectName, desc, importedFactors);
+      setName("");
+      setDescription("");
+      setFactors(defaultFactors.map(f => ({ ...f })));
+      setStep(0);
+      const filled = Object.keys(result.factorValues).length;
+      toast.success("XER-fil importerad", {
+        description: `${filled} av 10 faktorer fylldes automatiskt. Klicka på pricken i matrisen för att finjustera övriga.`,
+      });
+    } catch (err) {
+      toast.error("Kunde inte läsa XER-filen", {
+        description: err instanceof Error ? err.message : "Okänt fel",
+      });
+    }
+  };
 
   const updateFactor = (factorId: string, value: number) => {
     setFactors(prev => prev.map(f => f.id === factorId ? { ...f, value } : f));
