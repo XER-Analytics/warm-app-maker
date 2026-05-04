@@ -238,6 +238,36 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
             <Button className="w-full h-9 text-sm" disabled={!canProceed} onClick={() => setStep(1)}>
               Starta bedömning <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
+
+            <div className="relative flex items-center gap-2 py-1">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">eller</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".xer,text/plain"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleXerImport(f);
+                e.target.value = "";
+              }}
+            />
+            <Button
+              variant="outline"
+              className="w-full h-9 text-sm"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-3.5 w-3.5 mr-1.5" />
+              Importera XER-fil (Primavera P6)
+            </Button>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              Vi läser kodmängd, WBS-djup, tidplansdetalj, antal resurser, resursnivå och risker direkt från filen.
+              Övriga faktorer fyller du i efteråt.
+            </p>
           </div>
         ) : currentQuestion ? (
           <div className="space-y-4">
