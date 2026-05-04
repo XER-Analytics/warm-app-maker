@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { AssessmentFactor, defaultFactors, calculatePosition } from "@/lib/projectData";
 import { questions } from "@/lib/questionnaireData";
-import { parseXer, mapXerToFactors } from "@/lib/xerParser";
+import { parseXer, mapXerToFactors, type XerImportResult } from "@/lib/xerParser";
+import XerImportReport from "./XerImportReport";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -139,6 +140,7 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
   const [factors, setFactors] = useState<AssessmentFactor[]>(defaultFactors.map(f => ({ ...f })));
   const [step, setStep] = useState(0); // 0 = info, 1..N = questions
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [importReport, setImportReport] = useState<XerImportResult | null>(null);
 
   const totalSteps = questions.length + 1;
 
@@ -158,10 +160,7 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
       setDescription("");
       setFactors(defaultFactors.map(f => ({ ...f })));
       setStep(0);
-      const filled = Object.keys(result.factorValues).length;
-      toast.success("XER-fil importerad", {
-        description: `${filled} av 10 faktorer fylldes automatiskt. Klicka på pricken i matrisen för att finjustera övriga.`,
-      });
+      setImportReport(result);
     } catch (err) {
       toast.error("Kunde inte läsa XER-filen", {
         description: err instanceof Error ? err.message : "Okänt fel",
@@ -196,6 +195,8 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
   };
 
   return (
+    <>
+    <XerImportReport open={!!importReport} onClose={() => setImportReport(null)} report={importReport} />
     <Card className="border-border">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
@@ -323,6 +324,7 @@ const QuestionnaireForm = ({ onSubmit }: AssessmentFormProps) => {
         ) : null}
       </CardContent>
     </Card>
+    </>
   );
 };
 
