@@ -11,23 +11,33 @@ interface MatrixChartProps {
 }
 
 const CustomDot = (props: any) => {
-  const { cx, cy, payload } = props;
+  const { cx, cy, payload, selectedId } = props;
   const isUser = payload.isUserProject;
-  const size = isUser ? 10 : 7;
+  const isSelected = selectedId && payload.id === selectedId;
+  const size = isSelected ? 12 : isUser ? 10 : 7;
 
   return (
     <g>
+      {isSelected && (
+        <>
+          <circle cx={cx} cy={cy} r={22} fill="hsl(var(--primary))" opacity={0.12} />
+          <circle cx={cx} cy={cy} r={18} fill="none" stroke="hsl(var(--primary))" strokeWidth={2} opacity={0.9}>
+            <animate attributeName="r" from="14" to="26" dur="1.4s" repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.9" to="0" dur="1.4s" repeatCount="indefinite" />
+          </circle>
+        </>
+      )}
       <circle
         cx={cx}
         cy={cy}
         r={size}
         fill={payload.color}
-        stroke={isUser ? "hsl(var(--foreground))" : "hsl(var(--border))"}
-        strokeWidth={isUser ? 2.5 : 1.5}
+        stroke={isSelected ? "hsl(var(--primary))" : isUser ? "hsl(var(--foreground))" : "hsl(var(--border))"}
+        strokeWidth={isSelected ? 3 : isUser ? 2.5 : 1.5}
         className="cursor-pointer transition-all"
-        style={{ filter: isUser ? "drop-shadow(0 2px 6px rgba(0,0,0,0.15))" : undefined }}
+        style={{ filter: isSelected ? "drop-shadow(0 4px 10px hsl(var(--primary) / 0.5))" : isUser ? "drop-shadow(0 2px 6px rgba(0,0,0,0.15))" : undefined }}
       />
-      {isUser && (
+      {isUser && !isSelected && (
         <circle cx={cx} cy={cy} r={14} fill="none" stroke={payload.color} strokeWidth={1} strokeDasharray="3 3" opacity={0.5} />
       )}
     </g>
@@ -124,7 +134,7 @@ const MatrixChart = ({ projects, selectedId, onSelect, onDrop }: MatrixChartProp
               <ReferenceLine x={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <ReferenceLine y={50} stroke="hsl(var(--border))" strokeDasharray="6 4" />
               <RechartsTooltip content={<CustomTooltip />} />
-              <Scatter data={projects} shape={<CustomDot />} onClick={handleDotClick} />
+              <Scatter data={projects} shape={(props: any) => <CustomDot {...props} selectedId={selectedId} />} onClick={handleDotClick} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
