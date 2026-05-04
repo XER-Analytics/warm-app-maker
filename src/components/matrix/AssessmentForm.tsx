@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { AssessmentFactor, defaultFactors, calculatePosition } from "@/lib/projectData";
 import { questions } from "@/lib/questionnaireData";
-import { parseXer, mapXerToFactors } from "@/lib/xerParser";
+import { parseXer, mapXerToFactors, type XerImportResult } from "@/lib/xerParser";
+import XerImportReport from "./XerImportReport";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
