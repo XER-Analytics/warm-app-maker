@@ -14,6 +14,7 @@ export interface XerImportResult {
   projectName: string;
   description: string;
   factorValues: Record<string, number>; // factorId -> 0..100
+  tablesFound: { name: string; rowCount: number }[];
   stats: {
     taskCount: number;
     wbsDepth: number;
