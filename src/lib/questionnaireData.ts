@@ -51,6 +51,16 @@ export const questions: Question[] = [
       { label: "Dagligen eller oftare", value: 90 },
     ],
   },
+  {
+    factorId: "historical_data",
+    question: "Hur mycket historisk projektdata finns tillgänglig?",
+    options: [
+      { label: "Ingen eller mycket begränsad", value: 10 },
+      { label: "Viss data från tidigare projekt", value: 35 },
+      { label: "Strukturerad databas med jämförbara projekt", value: 65 },
+      { label: "Omfattande benchmarkdata med nyckeltal", value: 90 },
+    ],
+  },
   // Y-axis: Datamängd
   {
     factorId: "resource_count",
@@ -80,16 +90,6 @@ export const questions: Question[] = [
       { label: "Risklista utan kvantifiering", value: 35 },
       { label: "Riskregister med sannolikhet och konsekvens", value: 65 },
       { label: "Kvantitativ riskanalys (Monte Carlo eller liknande)", value: 90 },
-    ],
-  },
-  {
-    factorId: "historical_data",
-    question: "Hur mycket historisk projektdata finns tillgänglig?",
-    options: [
-      { label: "Ingen eller mycket begränsad", value: 10 },
-      { label: "Viss data från tidigare projekt", value: 35 },
-      { label: "Strukturerad databas med jämförbara projekt", value: 65 },
-      { label: "Omfattande benchmarkdata med nyckeltal", value: 90 },
     ],
   },
   {
