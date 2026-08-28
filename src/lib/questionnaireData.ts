@@ -12,13 +12,23 @@ export interface Question {
 export const questions: Question[] = [
   // X-axis: Detaljnivå
   {
-    factorId: "plan_scope",
-    question: "Hur omfattande är projektplanen (WBS och antal aktiviteter)?",
+    factorId: "code_volume",
+    question: "Hur många aktiviteter/koder innehåller projektplanen?",
     options: [
-      { label: "Övergripande faser, färre än 1 000 aktiviteter", value: 10 },
-      { label: "2–3 WBS-nivåer, 1 000–5 000 aktiviteter", value: 35 },
-      { label: "4 WBS-nivåer, 5 000–20 000 aktiviteter", value: 65 },
-      { label: "5+ WBS-nivåer, mer än 20 000 aktiviteter", value: 90 },
+      { label: "Färre än 1 000 aktiviteter", value: 10 },
+      { label: "1 000–5 000 aktiviteter", value: 35 },
+      { label: "5 000–20 000 aktiviteter", value: 65 },
+      { label: "Mer än 20 000 aktiviteter", value: 90 },
+    ],
+  },
+  {
+    factorId: "wbs_depth",
+    question: "Hur många nivåer är planen nedbruten i (WBS)?",
+    options: [
+      { label: "Platt struktur, inga WBS-nivåer", value: 10 },
+      { label: "2–3 WBS-nivåer", value: 35 },
+      { label: "4–5 WBS-nivåer", value: 65 },
+      { label: "6+ WBS-nivåer", value: 90 },
     ],
   },
   {
