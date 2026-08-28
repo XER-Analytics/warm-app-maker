@@ -156,12 +156,17 @@ export function mapXerToFactors(data: XerData): XerImportResult {
 
   // --- Map to 0..100 factor scores ---
   // X-axis (säkra)
-  const code_volume = scale(taskCount, [
+  const task_count = scale(taskCount, [
     [0, 5], [500, 25], [1000, 40], [5000, 65], [20000, 90], [50000, 100],
   ]);
-  const wbs_depth = scale(wbsDepth, [
+  // Kodmängd & WBS-struktur: kombinerar antal WBS-noder (koder) med strukturens djup
+  const wbsCountScore = scale(wbsCount, [
+    [0, 5], [10, 25], [30, 45], [80, 65], [200, 85], [500, 100],
+  ]);
+  const wbsDepthScore = scale(wbsDepth, [
     [0, 5], [2, 25], [3, 45], [4, 65], [5, 80], [7, 95],
   ]);
+  const code_wbs = Math.round(0.5 * wbsCountScore + 0.5 * wbsDepthScore);
   const schedule_detail = scale(avgDuration, [
     [0, 50], [8, 90], [40, 70], [160, 50], [480, 30], [2000, 10],
   ]);
