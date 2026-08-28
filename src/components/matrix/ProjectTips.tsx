@@ -1,6 +1,6 @@
-import { Project, getMatrixZone } from "@/lib/projectData";
+import { Project, getMatrixZone, explainPosition } from "@/lib/projectData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Lightbulb, TrendingUp } from "lucide-react";
+import { ArrowRight, Lightbulb, TrendingUp, Compass } from "lucide-react";
 
 interface ProjectTipsProps {
   project: Project | null;
