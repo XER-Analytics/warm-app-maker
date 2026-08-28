@@ -188,8 +188,8 @@ export function mapXerToFactors(data: XerData): XerImportResult {
     description,
     tablesFound,
     factorValues: {
-      code_volume,
-      wbs_depth,
+      task_count,
+      code_wbs,
       schedule_detail,
       resource_count,
       resource_level: resourceLevelScore,
