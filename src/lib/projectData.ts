@@ -51,7 +51,7 @@ export const demoProjects: Project[] = [
     id: "survey-2",
     name: "E02 - Centralen",
     description: "Level 3, 20k+ aktiviteter, SPI/CPI/EV, 50+ resurser, individnivå",
-    x: 73, y: 80,
+    x: 72, y: 80,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
       const vals: Record<string, number> = { code_volume: 90, wbs_depth: 50, schedule_detail: 60, resource_count: 80, resource_level: 90, risk_detail: 60, historical_data: 70, kpi_tracking: 90, data_integration: 75, reporting_freq: 70 };
@@ -135,7 +135,7 @@ export const demoProjects: Project[] = [
     id: "survey-9",
     name: "BSH - Helsingborg",
     description: "1-5k aktiviteter, kritisk linje, blandat engagemang bland PL",
-    x: 29, y: 24,
+    x: 28, y: 24,
     color: "hsl(var(--chart-4))",
     factors: defaultFactors.map(f => {
       const vals: Record<string, number> = { code_volume: 30, wbs_depth: 25, schedule_detail: 30, resource_count: 20, resource_level: 25, risk_detail: 25, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 30 };
@@ -183,7 +183,7 @@ export const demoProjects: Project[] = [
     id: "survey-13",
     name: "E05 Korsvägen - Design",
     description: "Level 5, 10-20k aktiviteter, veckoavstemning, KPI-rapporter, leveranslogg-import",
-    x: 77, y: 63,
+    x: 76, y: 63,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
       const vals: Record<string, number> = { code_volume: 85, wbs_depth: 75, schedule_detail: 80, resource_count: 55, resource_level: 60, risk_detail: 65, historical_data: 65, kpi_tracking: 80, data_integration: 70, reporting_freq: 70 };
