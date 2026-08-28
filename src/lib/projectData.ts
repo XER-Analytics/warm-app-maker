@@ -21,11 +21,10 @@ export interface Project {
 
 export const defaultFactors: AssessmentFactor[] = [
   // X-axis factors (detaljnivå)
-  { id: "wbs_depth", label: "WBS-djup", description: "Hur detaljerad är projektets nedbrytningsstruktur?", axis: "x", weight: 0.13, value: 50 },
+  { id: "plan_scope", label: "Planens omfattning", description: "Kombination av WBS-djup och antal aktiviteter/koder – hur omfattande och nedbruten är planen?", axis: "x", weight: 0.45, value: 50 },
   { id: "schedule_detail", label: "Tidplansdetalj", description: "Hur granulär är tidplanen (milstolpar vs dagliga aktiviteter)?", axis: "x", weight: 0.17, value: 50 },
-  { id: "code_volume", label: "Kodmängd", description: "Hur många aktiviteter/koder finns i tidplanen? Fler koder ger högre flexibilitet och analysmöjlighet.", axis: "x", weight: 0.35, value: 50 },
   { id: "reporting_freq", label: "Rapporteringsfrekvens", description: "Hur ofta samlas och rapporteras data?", axis: "x", weight: 0.20, value: 50 },
-  { id: "historical_data", label: "Historisk data", description: "Hur mycket historisk projektdata finns tillgänglig?", axis: "x", weight: 0.15, value: 50 },
+  { id: "historical_data", label: "Historisk data", description: "Hur mycket historisk projektdata finns tillgänglig?", axis: "x", weight: 0.18, value: 50 },
   // Y-axis factors (datamängd)
   { id: "resource_count", label: "Antal resurser", description: "Hur många resurser är kopplade till projektet?", axis: "y", weight: 0.30, value: 50 },
   { id: "resource_level", label: "Resursnivå", description: "På vilken nivå planeras resurserna (roll, disciplin, individ)?", axis: "y", weight: 0.25, value: 50 },
@@ -39,10 +38,10 @@ export const demoProjects: Project[] = [
     id: "survey-1",
     name: "Ringhals Revisionsplanering",
     description: "Kärnkraft, 10-20k aktiviteter, timgranulering, daglig avstämning, SAP-import",
-    x: 81, y: 66,
+    x: 80, y: 66,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 80, schedule_detail: 85, code_volume: 80, resource_count: 60, resource_level: 75, risk_detail: 60, historical_data: 65, kpi_tracking: 60, data_integration: 75, reporting_freq: 90 };
+      const vals: Record<string, number> = { plan_scope: 80, schedule_detail: 85, resource_count: 60, resource_level: 75, risk_detail: 60, historical_data: 65, kpi_tracking: 60, data_integration: 75, reporting_freq: 90 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -54,7 +53,7 @@ export const demoProjects: Project[] = [
     x: 73, y: 80,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 55, schedule_detail: 60, code_volume: 90, resource_count: 80, resource_level: 90, risk_detail: 60, historical_data: 70, kpi_tracking: 90, data_integration: 75, reporting_freq: 70 };
+      const vals: Record<string, number> = { plan_scope: 81, schedule_detail: 60, resource_count: 80, resource_level: 90, risk_detail: 60, historical_data: 70, kpi_tracking: 90, data_integration: 75, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -66,7 +65,7 @@ export const demoProjects: Project[] = [
     x: 54, y: 62,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 50, schedule_detail: 50, code_volume: 60, resource_count: 75, resource_level: 70, risk_detail: 50, historical_data: 55, kpi_tracking: 45, data_integration: 50, reporting_freq: 50 };
+      const vals: Record<string, number> = { plan_scope: 57, schedule_detail: 50, resource_count: 75, resource_level: 70, risk_detail: 50, historical_data: 55, kpi_tracking: 45, data_integration: 50, reporting_freq: 50 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -75,10 +74,10 @@ export const demoProjects: Project[] = [
     id: "survey-4",
     name: "E05 Korsvägen",
     description: "Level 5, 20k+ aktiviteter, veckoavstemning, EV & kritiska kedjor",
-    x: 80, y: 58,
+    x: 79, y: 58,
     color: "hsl(var(--chart-4))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 90, resource_count: 50, resource_level: 55, risk_detail: 70, historical_data: 60, kpi_tracking: 75, data_integration: 55, reporting_freq: 70 };
+      const vals: Record<string, number> = { plan_scope: 90, schedule_detail: 80, resource_count: 50, resource_level: 55, risk_detail: 70, historical_data: 60, kpi_tracking: 75, data_integration: 55, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -87,10 +86,10 @@ export const demoProjects: Project[] = [
     id: "survey-5",
     name: "Andion",
     description: "Mindre projekt, 1-5k aktiviteter, månadsrapporter, inga resurser",
-    x: 26, y: 11,
+    x: 25, y: 11,
     color: "hsl(var(--chart-5))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 20, schedule_detail: 25, code_volume: 30, resource_count: 10, resource_level: 10, risk_detail: 15, historical_data: 15, kpi_tracking: 10, data_integration: 10, reporting_freq: 30 };
+      const vals: Record<string, number> = { plan_scope: 27, schedule_detail: 25, resource_count: 10, resource_level: 10, risk_detail: 15, historical_data: 15, kpi_tracking: 10, data_integration: 10, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -102,7 +101,7 @@ export const demoProjects: Project[] = [
     x: 33, y: 27,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 35, code_volume: 30, resource_count: 25, resource_level: 30, risk_detail: 30, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 45 };
+      const vals: Record<string, number> = { plan_scope: 30, schedule_detail: 35, resource_count: 25, resource_level: 30, risk_detail: 30, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 45 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -114,7 +113,7 @@ export const demoProjects: Project[] = [
     x: 14, y: 10,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 10, schedule_detail: 15, code_volume: 10, resource_count: 10, resource_level: 10, risk_detail: 10, historical_data: 10, kpi_tracking: 10, data_integration: 10, reporting_freq: 25 };
+      const vals: Record<string, number> = { plan_scope: 10, schedule_detail: 15, resource_count: 10, resource_level: 10, risk_detail: 10, historical_data: 10, kpi_tracking: 10, data_integration: 10, reporting_freq: 25 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-27",
@@ -123,10 +122,10 @@ export const demoProjects: Project[] = [
     id: "survey-8",
     name: "Barsebäck - Nedmonteringen",
     description: "Level 4, 1-5k aktiviteter, 15-50 resurser, individ- & rollnivå",
-    x: 45, y: 49,
+    x: 46, y: 49,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 70, schedule_detail: 55, code_volume: 30, resource_count: 40, resource_level: 65, risk_detail: 50, historical_data: 50, kpi_tracking: 40, data_integration: 45, reporting_freq: 45 };
+      const vals: Record<string, number> = { plan_scope: 41, schedule_detail: 55, resource_count: 40, resource_level: 65, risk_detail: 50, historical_data: 50, kpi_tracking: 40, data_integration: 45, reporting_freq: 45 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -138,7 +137,7 @@ export const demoProjects: Project[] = [
     x: 29, y: 24,
     color: "hsl(var(--chart-4))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 25, schedule_detail: 30, code_volume: 30, resource_count: 20, resource_level: 25, risk_detail: 25, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 30 };
+      const vals: Record<string, number> = { plan_scope: 29, schedule_detail: 30, resource_count: 20, resource_level: 25, risk_detail: 25, historical_data: 25, kpi_tracking: 35, data_integration: 20, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -150,7 +149,7 @@ export const demoProjects: Project[] = [
     x: 30, y: 35,
     color: "hsl(var(--chart-5))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 30, schedule_detail: 25, code_volume: 30, resource_count: 30, resource_level: 35, risk_detail: 35, historical_data: 35, kpi_tracking: 40, data_integration: 40, reporting_freq: 30 };
+      const vals: Record<string, number> = { plan_scope: 30, schedule_detail: 25, resource_count: 30, resource_level: 35, risk_detail: 35, historical_data: 35, kpi_tracking: 40, data_integration: 40, reporting_freq: 30 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-28",
@@ -162,7 +161,7 @@ export const demoProjects: Project[] = [
     x: 64, y: 57,
     color: "hsl(var(--chart-1))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 70, code_volume: 55, resource_count: 45, resource_level: 50, risk_detail: 55, historical_data: 60, kpi_tracking: 85, data_integration: 70, reporting_freq: 60 };
+      const vals: Record<string, number> = { plan_scope: 64, schedule_detail: 70, resource_count: 45, resource_level: 50, risk_detail: 55, historical_data: 60, kpi_tracking: 85, data_integration: 70, reporting_freq: 60 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-10-29",
@@ -171,10 +170,10 @@ export const demoProjects: Project[] = [
     id: "survey-12",
     name: "Bravida FSE 905",
     description: "Level 5, 5-10k aktiviteter, disciplinnivå, tvåveckorsrapport",
-    x: 60, y: 43,
+    x: 59, y: 43,
     color: "hsl(var(--chart-2))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 65, code_volume: 60, resource_count: 45, resource_level: 55, risk_detail: 40, historical_data: 35, kpi_tracking: 35, data_integration: 30, reporting_freq: 55 };
+      const vals: Record<string, number> = { plan_scope: 68, schedule_detail: 65, resource_count: 45, resource_level: 55, risk_detail: 40, historical_data: 35, kpi_tracking: 35, data_integration: 30, reporting_freq: 55 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-11-02",
@@ -186,7 +185,7 @@ export const demoProjects: Project[] = [
     x: 77, y: 63,
     color: "hsl(var(--chart-3))",
     factors: defaultFactors.map(f => {
-      const vals: Record<string, number> = { wbs_depth: 90, schedule_detail: 80, code_volume: 80, resource_count: 55, resource_level: 60, risk_detail: 65, historical_data: 65, kpi_tracking: 80, data_integration: 70, reporting_freq: 70 };
+      const vals: Record<string, number> = { plan_scope: 83, schedule_detail: 80, resource_count: 55, resource_level: 60, risk_detail: 65, historical_data: 65, kpi_tracking: 80, data_integration: 70, reporting_freq: 70 };
       return { ...f, value: vals[f.id] ?? 50 };
     }),
     createdAt: "2025-11-06",
@@ -213,4 +212,36 @@ export function getMatrixZone(x: number, y: number): string {
   if (x < 40 && y >= 70) return "Dataöverflöd utan struktur";
   if (x >= 40 && x < 70 && y >= 70) return "Datadrivet";
   return "Optimalt läge";
+}
+
+export interface PositionExplanation {
+  xDrivers: { label: string; contribution: number; value: number }[];
+  yDrivers: { label: string; contribution: number; value: number }[];
+  summary: string;
+}
+
+export function explainPosition(project: Project): PositionExplanation {
+  const ranked = (axis: "x" | "y") => {
+    const factors = project.factors.filter(f => f.axis === axis);
+    const totalWeight = factors.reduce((s, f) => s + f.weight, 0);
+    return factors
+      .map(f => ({
+        label: f.label,
+        value: f.value,
+        contribution: Math.round((f.value * f.weight) / totalWeight),
+      }))
+      .sort((a, b) => b.contribution - a.contribution);
+  };
+
+  const xDrivers = ranked("x");
+  const yDrivers = ranked("y");
+  const zone = getMatrixZone(project.x, project.y);
+
+  const topX = xDrivers[0];
+  const topY = yDrivers[0];
+  const summary = `${project.name} hamnar i zonen "${zone}" (x=${project.x}, y=${project.y}). ` +
+    `Detaljnivån på X-axeln drivs främst av ${topX.label.toLowerCase()} (${topX.value}/100), ` +
+    `medan datamängden på Y-axeln främst påverkas av ${topY.label.toLowerCase()} (${topY.value}/100).`;
+
+  return { xDrivers, yDrivers, summary };
 }

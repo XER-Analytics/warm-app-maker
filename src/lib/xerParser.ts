@@ -183,8 +183,9 @@ export function mapXerToFactors(data: XerData): XerImportResult {
     description,
     tablesFound,
     factorValues: {
-      code_volume,
-      wbs_depth,
+      // WBS-djup och kodmängd är sammanslagna till "Planens omfattning"
+      // (samma relativvikt som i bedömningsmodellen: ~73% kodmängd, ~27% WBS-djup)
+      plan_scope: Math.round(0.73 * code_volume + 0.27 * wbs_depth),
       schedule_detail,
       resource_count,
       resource_level: resourceLevelScore,

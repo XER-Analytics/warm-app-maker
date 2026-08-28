@@ -1,6 +1,6 @@
-import { Project, getMatrixZone } from "@/lib/projectData";
+import { Project, getMatrixZone, explainPosition } from "@/lib/projectData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Lightbulb, TrendingUp } from "lucide-react";
+import { ArrowRight, Lightbulb, TrendingUp, Compass } from "lucide-react";
 
 interface ProjectTipsProps {
   project: Project | null;
@@ -123,6 +123,7 @@ const ProjectTips = ({ project }: ProjectTipsProps) => {
 
   const zone = getMatrixZone(project.x, project.y);
   const data = tipsByZone[zone] || tipsByZone["Balanserat"];
+  const explanation = explainPosition(project);
 
   return (
     <Card className="border-border">
@@ -136,6 +137,38 @@ const ProjectTips = ({ project }: ProjectTipsProps) => {
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="rounded-md bg-secondary/50 px-3 py-2 space-y-2">
+          <div className="flex items-center gap-1.5">
+            <Compass className="h-3.5 w-3.5 text-primary" />
+            <h4 className="text-xs font-semibold text-foreground">Varför denna placering?</h4>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">{explanation.summary}</p>
+          <div className="grid grid-cols-2 gap-3 pt-1">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Detaljnivå (X)</p>
+              <div className="space-y-0.5">
+                {explanation.xDrivers.slice(0, 3).map(d => (
+                  <div key={d.label} className="flex justify-between text-[11px]">
+                    <span className="text-muted-foreground truncate">{d.label}</span>
+                    <span className="tabular-nums text-foreground ml-2">{d.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Datamängd (Y)</p>
+              <div className="space-y-0.5">
+                {explanation.yDrivers.slice(0, 3).map(d => (
+                  <div key={d.label} className="flex justify-between text-[11px]">
+                    <span className="text-muted-foreground truncate">{d.label}</span>
+                    <span className="tabular-nums text-foreground ml-2">{d.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-1.5">
           {data.tips.map((tip, i) => (
             <p key={i} className="text-xs text-muted-foreground leading-relaxed">{tip}</p>
