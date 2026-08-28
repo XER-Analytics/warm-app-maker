@@ -213,3 +213,35 @@ export function getMatrixZone(x: number, y: number): string {
   if (x >= 40 && x < 70 && y >= 70) return "Datadrivet";
   return "Optimalt läge";
 }
+
+export interface PositionExplanation {
+  xDrivers: { label: string; contribution: number; value: number }[];
+  yDrivers: { label: string; contribution: number; value: number }[];
+  summary: string;
+}
+
+export function explainPosition(project: Project): PositionExplanation {
+  const ranked = (axis: "x" | "y") => {
+    const factors = project.factors.filter(f => f.axis === axis);
+    const totalWeight = factors.reduce((s, f) => s + f.weight, 0);
+    return factors
+      .map(f => ({
+        label: f.label,
+        value: f.value,
+        contribution: Math.round((f.value * f.weight) / totalWeight),
+      }))
+      .sort((a, b) => b.contribution - a.contribution);
+  };
+
+  const xDrivers = ranked("x");
+  const yDrivers = ranked("y");
+  const zone = getMatrixZone(project.x, project.y);
+
+  const topX = xDrivers[0];
+  const topY = yDrivers[0];
+  const summary = `${project.name} hamnar i zonen "${zone}" (x=${project.x}, y=${project.y}). ` +
+    `Detaljnivån på X-axeln drivs främst av ${topX.label.toLowerCase()} (${topX.value}/100), ` +
+    `medan datamängden på Y-axeln främst påverkas av ${topY.label.toLowerCase()} (${topY.value}/100).`;
+
+  return { xDrivers, yDrivers, summary };
+}
