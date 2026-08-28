@@ -214,9 +214,59 @@ export function getMatrixZone(x: number, y: number): string {
   return "Optimalt läge";
 }
 
+// Convert a factor's 0-100 score to a human-readable, real-world description
+export function describeFactorValue(factorId: string, value: number): string {
+  switch (factorId) {
+    case "plan_scope": {
+      const tasks = value < 15 ? "< 1 000" : value < 35 ? "1 000–5 000" : value < 55 ? "5 000–10 000" : value < 75 ? "10 000–20 000" : "> 20 000";
+      const wbs = value < 25 ? "platt struktur" : value < 50 ? "2–3 nivåer i WBS" : value < 75 ? "3–5 nivåer i WBS" : "5+ nivåer i WBS";
+      return `${tasks} aktiviteter, ${wbs}`;
+    }
+    case "schedule_detail":
+      if (value < 25) return "milstolpsnivå";
+      if (value < 50) return "månadsgranulering";
+      if (value < 75) return "veckogranulering";
+      return "dags- eller timgranulering";
+    case "reporting_freq":
+      if (value < 25) return "rapporterar kvartalsvis eller mer sällan";
+      if (value < 50) return "rapporterar månadsvis";
+      if (value < 75) return "rapporterar veckovis";
+      return "rapporterar dagligen";
+    case "historical_data":
+      if (value < 25) return "ingen eller obefintlig historisk data";
+      if (value < 50) return "sporadisk historisk data från enstaka projekt";
+      if (value < 75) return "strukturerad data från flera tidigare projekt";
+      return "omfattande och välstrukturerad historisk databas";
+    case "resource_count": {
+      const count = value < 15 ? "< 15" : value < 40 ? "15–50" : value < 70 ? "ca 50" : "50+";
+      return `${count} resurser`;
+    }
+    case "resource_level":
+      if (value < 25) return "resurser planeras på rollnivå";
+      if (value < 60) return "resurser planeras på disciplinnivå";
+      return "resurser planeras på individnivå";
+    case "risk_detail":
+      if (value < 25) return "riskområden är grovt identifierade";
+      if (value < 50) return "risklogg finns utan kvantifiering";
+      if (value < 75) return "risker kvantifieras (sannolikhet/konsekvens)";
+      return "fullständig riskanalys med simulering (t.ex. Monte Carlo)";
+    case "kpi_tracking": {
+      const kpis = value < 20 ? "0–1" : value < 45 ? "2–3" : value < 70 ? "4–6" : "7+";
+      return `${kpis} KPI:er följs upp`;
+    }
+    case "data_integration":
+      if (value < 25) return "manuell datahantering (Excel)";
+      if (value < 50) return "delvis integration mot något system";
+      if (value < 75) return "integration mot ERP/tidrapportering";
+      return "fullt integrerad dataflödeskedja";
+    default:
+      return `${value}/100`;
+  }
+}
+
 export interface PositionExplanation {
-  xDrivers: { label: string; contribution: number; value: number }[];
-  yDrivers: { label: string; contribution: number; value: number }[];
+  xDrivers: { label: string; contribution: number; description: string }[];
+  yDrivers: { label: string; contribution: number; description: string }[];
   summary: string;
 }
 
@@ -227,7 +277,7 @@ export function explainPosition(project: Project): PositionExplanation {
     return factors
       .map(f => ({
         label: f.label,
-        value: f.value,
+        description: describeFactorValue(f.id, f.value),
         contribution: Math.round((f.value * f.weight) / totalWeight),
       }))
       .sort((a, b) => b.contribution - a.contribution);
@@ -239,9 +289,9 @@ export function explainPosition(project: Project): PositionExplanation {
 
   const topX = xDrivers[0];
   const topY = yDrivers[0];
-  const summary = `${project.name} hamnar i zonen "${zone}" (x=${project.x}, y=${project.y}). ` +
-    `Detaljnivån på X-axeln drivs främst av ${topX.label.toLowerCase()} (${topX.value}/100), ` +
-    `medan datamängden på Y-axeln främst påverkas av ${topY.label.toLowerCase()} (${topY.value}/100).`;
+  const summary = `${project.name} hamnar i zonen "${zone}". ` +
+    `Detaljnivån på X-axeln drivs främst av ${topX.label.toLowerCase()} – ${topX.description}. ` +
+    `Datamängden på Y-axeln påverkas främst av ${topY.label.toLowerCase()} – ${topY.description}.`;
 
   return { xDrivers, yDrivers, summary };
 }

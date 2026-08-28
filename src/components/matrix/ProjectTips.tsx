@@ -148,9 +148,9 @@ const ProjectTips = ({ project }: ProjectTipsProps) => {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Detaljnivå (X)</p>
               <div className="space-y-0.5">
                 {explanation.xDrivers.slice(0, 3).map(d => (
-                  <div key={d.label} className="flex justify-between text-[11px]">
-                    <span className="text-muted-foreground truncate">{d.label}</span>
-                    <span className="tabular-nums text-foreground ml-2">{d.value}</span>
+                  <div key={d.label} className="text-[11px]">
+                    <span className="text-muted-foreground">{d.label}: </span>
+                    <span className="text-foreground">{d.description}</span>
                   </div>
                 ))}
               </div>
@@ -159,9 +159,9 @@ const ProjectTips = ({ project }: ProjectTipsProps) => {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Datamängd (Y)</p>
               <div className="space-y-0.5">
                 {explanation.yDrivers.slice(0, 3).map(d => (
-                  <div key={d.label} className="flex justify-between text-[11px]">
-                    <span className="text-muted-foreground truncate">{d.label}</span>
-                    <span className="tabular-nums text-foreground ml-2">{d.value}</span>
+                  <div key={d.label} className="text-[11px]">
+                    <span className="text-muted-foreground">{d.label}: </span>
+                    <span className="text-foreground">{d.description}</span>
                   </div>
                 ))}
               </div>
