@@ -218,11 +218,15 @@ export function getMatrixZone(x: number, y: number): string {
 // Convert a factor's 0-100 score to a human-readable, real-world description
 export function describeFactorValue(factorId: string, value: number): string {
   switch (factorId) {
-    case "plan_scope": {
+    case "code_volume": {
       const tasks = value < 15 ? "< 1 000" : value < 35 ? "1 000–5 000" : value < 55 ? "5 000–10 000" : value < 75 ? "10 000–20 000" : "> 20 000";
-      const wbs = value < 25 ? "platt struktur" : value < 50 ? "2–3 nivåer i WBS" : value < 75 ? "3–5 nivåer i WBS" : "5+ nivåer i WBS";
-      return `${tasks} aktiviteter, ${wbs}`;
+      return `${tasks} aktiviteter i planen`;
     }
+    case "wbs_depth":
+      if (value < 25) return "platt struktur utan WBS-nivåer";
+      if (value < 50) return "2–3 nivåer i WBS";
+      if (value < 75) return "3–5 nivåer i WBS";
+      return "5+ nivåer i WBS";
     case "schedule_detail":
       if (value < 25) return "milstolpsnivå";
       if (value < 50) return "månadsgranulering";
