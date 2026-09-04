@@ -4,11 +4,14 @@ import MatrixChart from "@/components/matrix/MatrixChart";
 import AssessmentForm from "@/components/matrix/AssessmentForm";
 import ProjectList from "@/components/matrix/ProjectList";
 import ProjectTips from "@/components/matrix/ProjectTips";
+import { Button } from "@/components/ui/button";
+import { Undo2 } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const Index: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(demoProjects);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [lastDeleted, setLastDeleted] = useState<Project | null>(null);
 
   const selectedProject = projects.find((p) => p.id === selectedId) || null;
 
@@ -56,11 +59,21 @@ const Index: React.FC = () => {
 
   const handleDelete = useCallback(
     (id: string) => {
+      const project = projects.find((p) => p.id === id);
+      if (project) setLastDeleted(project);
       setProjects((prev) => prev.filter((p) => p.id !== id));
       if (selectedId === id) setSelectedId(undefined);
     },
-    [selectedId],
+    [selectedId, projects],
   );
+
+  const handleUndoDelete = useCallback(() => {
+    if (!lastDeleted) return;
+    setProjects((prev) =>
+      prev.some((p) => p.id === lastDeleted.id) ? prev : [...prev, lastDeleted],
+    );
+    setLastDeleted(null);
+  }, [lastDeleted]);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -99,6 +112,17 @@ const Index: React.FC = () => {
           {/* Right: Projects + Tips */}
           <div className="lg:col-span-3 space-y-5">
             <ProjectList projects={projects} selectedId={selectedId} onSelect={setSelectedId} onDelete={handleDelete} />
+            {lastDeleted && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={handleUndoDelete}
+              >
+                <Undo2 className="h-3.5 w-3.5 mr-1.5" />
+                Ångra borttagning av {lastDeleted.name}
+              </Button>
+            )}
             <ProjectTips project={selectedProject} />
           </div>
         </div>
