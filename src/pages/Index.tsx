@@ -4,6 +4,8 @@ import MatrixChart from "@/components/matrix/MatrixChart";
 import AssessmentForm from "@/components/matrix/AssessmentForm";
 import ProjectList from "@/components/matrix/ProjectList";
 import ProjectTips from "@/components/matrix/ProjectTips";
+import { Button } from "@/components/ui/button";
+import { Undo2 } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const Index: React.FC = () => {
@@ -110,6 +112,17 @@ const Index: React.FC = () => {
           {/* Right: Projects + Tips */}
           <div className="lg:col-span-3 space-y-5">
             <ProjectList projects={projects} selectedId={selectedId} onSelect={setSelectedId} onDelete={handleDelete} />
+            {lastDeleted && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={handleUndoDelete}
+              >
+                <Undo2 className="h-3.5 w-3.5 mr-1.5" />
+                Ångra borttagning av {lastDeleted.name}
+              </Button>
+            )}
             <ProjectTips project={selectedProject} />
           </div>
         </div>
