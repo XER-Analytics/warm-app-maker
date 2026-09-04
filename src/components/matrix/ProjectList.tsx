@@ -22,42 +22,50 @@ const ProjectList = ({ projects, selectedId, onSelect, onDelete }: ProjectListPr
           const zone = getMatrixZone(project.x, project.y);
           const isSelected = project.id === selectedId;
           return (
-            <button
+            <div
               key={project.id}
-              onClick={() => onSelect(project.id)}
               className={cn(
                 "w-full flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-left transition-colors",
                 isSelected ? "bg-secondary" : "hover:bg-secondary/50"
               )}
             >
-              <span
-                className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full"
-                style={{ backgroundColor: project.color }}
-              />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-medium text-foreground truncate">{project.name}</span>
-                  {project.isUserProject && (
-                    <Badge variant="secondary" className="text-[10px] h-4 px-1.5">Du</Badge>
-                  )}
+              <button
+                type="button"
+                onClick={() => onSelect(project.id)}
+                className="flex flex-1 min-w-0 items-start gap-2.5 text-left"
+              >
+                <span
+                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: project.color }}
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-medium text-foreground truncate">{project.name}</span>
+                    {project.isUserProject && (
+                      <Badge variant="secondary" className="text-[10px] h-4 px-1.5">Du</Badge>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{project.description}</p>
+                  <div className="flex items-center gap-2 mt-1 text-[10px] text-muted-foreground">
+                    <span>X: {project.x}</span>
+                    <span>Y: {project.y}</span>
+                    <span className="text-muted-foreground/60">• {zone}</span>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-0.5 truncate">{project.description}</p>
-                <div className="flex items-center gap-2 mt-1 text-[10px] text-muted-foreground">
-                  <span>X: {project.x}</span>
-                  <span>Y: {project.y}</span>
-                  <span className="text-muted-foreground/60">• {zone}</span>
-                </div>
-              </div>
+              </button>
               {onDelete && (
                 <button
+                  type="button"
                   onClick={(e) => { e.stopPropagation(); onDelete(project.id); }}
                   className="mt-1 shrink-0 rounded p-0.5 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/10 transition-colors"
                   title="Ta bort projekt"
+                  aria-label={`Ta bort ${project.name}`}
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
               )}
-            </button>
+            </div>
+
           );
         })}
       </CardContent>
