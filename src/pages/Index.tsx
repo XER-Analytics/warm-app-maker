@@ -9,6 +9,7 @@ import logo from "@/assets/logo.png";
 const Index: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(demoProjects);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [lastDeleted, setLastDeleted] = useState<Project | null>(null);
 
   const selectedProject = projects.find((p) => p.id === selectedId) || null;
 
@@ -56,11 +57,21 @@ const Index: React.FC = () => {
 
   const handleDelete = useCallback(
     (id: string) => {
+      const project = projects.find((p) => p.id === id);
+      if (project) setLastDeleted(project);
       setProjects((prev) => prev.filter((p) => p.id !== id));
       if (selectedId === id) setSelectedId(undefined);
     },
-    [selectedId],
+    [selectedId, projects],
   );
+
+  const handleUndoDelete = useCallback(() => {
+    if (!lastDeleted) return;
+    setProjects((prev) =>
+      prev.some((p) => p.id === lastDeleted.id) ? prev : [...prev, lastDeleted],
+    );
+    setLastDeleted(null);
+  }, [lastDeleted]);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
